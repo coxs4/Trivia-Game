@@ -7,7 +7,15 @@ public class Questions { //this is the questions class beginning
 	private int points = 0;
 
 	public Questions() {
-		
+		//prompt user to select a test type and then read their selection
+		System.out.println("Select the subject you would like to test: "+"\r\n"+"[1] General Trivia"+"\r\n"+"[2] Something Else");
+		Scanner input = new Scanner(System.in);
+		System.out.print("Your Choice: ");
+		int choice = input.nextInt();
+				
+				//set the test questions based on the user decision
+				setQuestions(choice);
+				setAnswers(choice);
 		//feed the questions, wait for an answer, and determine whether they answered correctly or not.
 		for(int q = 0; q<questions.length;q++) {
 			String ques = getQuestion(q);
@@ -66,16 +74,5 @@ public class Questions { //this is the questions class beginning
 		}	
 	}
 	
-	public static void main(String[] args) {
-		//prompt user to select a test type and then read their selection
-		System.out.println("Select the subject you would like to test: "+"\r\n"+"[1] General Trivia"+"\r\n"+"[2] Something Else");
-		Scanner input = new Scanner(System.in);
-		System.out.print("Your Choice: ");
-		int choice = input.nextInt();
-		
-		//set the test questions based on the user decision
-		setQuestions(choice);
-		setAnswers(choice);
-			
-	}
+	
 }
