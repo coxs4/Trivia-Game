@@ -28,16 +28,22 @@ public class Player
      }
      public void ClientChat() throws IOException
      {
-           BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
-           String s1;
+           BufferedReader read= new BufferedReader(new InputStreamReader(din));
+           String receiveMessage, sendMessage;
            do
            {
-               s1=br.readLine();
-               dout.writeUTF(s1);
-               dout.flush();
-               System.out.println("Server Message:"+din.readUTF());
+        	   if((receiveMessage = read.readLine())!= null) {
+        		   System.out.println(receiveMessage);
+        	   }
+              /* here is where code will go that will allow
+               * a user to click a button representing their
+               * answer. Send message will be button click.
+               */
+        	   
+        	   
+        	   //what do do once a choice is made
            }
-           while(!s1.equals("stop"));
+           while(!read.equals("stop"));
     }
     public static void main(String as[])
     {
