@@ -1,44 +1,61 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Questions { //this is the questions class beginning
 	public final static int testLen = 5;
 	private static String questions[] = new String[testLen];
-	private static char answers[]= new char[testLen];
-	private int points = 0;
+	private static int answers[]= new int[testLen];
+	private static int points = 0;
 
-	public Questions() {
-		//prompt user to select a test type and then read their selection
-		System.out.println("Select the subject you would like to test: "+"\r\n"+"[1] General Trivia"+"\r\n"+"[2] Something Else");
-		Scanner input = new Scanner(System.in);
-		System.out.print("Your Choice: ");
-		int choice = input.nextInt();
-				
-				//set the test questions based on the user decision
-				setQuestions(choice);
-				setAnswers(choice);
+	public static void main(String as[]) throws IOException
+    {
+		ServerSocket serverSocket = new ServerSocket(2134);
+		//wait and accept a connection
+		Socket mySocket = serverSocket.accept(); 
+
+		setQuestions(1);
+		setAnswers(1);
+		
 		//feed the questions, wait for an answer, and determine whether they answered correctly or not.
-		for(int q = 0; q<questions.length;q++) {
-			String ques = getQuestion(q);
-			System.out.println(ques);
-			
-			System.out.print("Answer: ");
-			char userAns = 'a'/*the button they press*/; //this is where the user makes their choice
-			char ans = getAnswer(q);
-			
-			if(userAns == ans) {
-				System.out.println("Correct!");	//calculate the correct answers
-				points++;
+		DataInputStream din;
+		OutputStream output = mySocket.getOutputStream();
+		PrintWriter write = new PrintWriter(output,true);
+		
+		InputStream input = mySocket.getInputStream();
+		BufferedReader read= new BufferedReader(new InputStreamReader(input));
+		
+		int receiveMessage;
+		while(true) {
+			for(int q = 0; q<questions.length;q++) {
+				String ques = getQuestion(q);
+				System.out.println(ques); //make this string show in the GUI.
+				
+					if((receiveMessage = read.read()) != 0) {
+						int ans = getAnswer(q);
+						if(receiveMessage == ans) {
+							System.out.println("Correct!");	//calculate the correct answers
+							points++;
+						}
+					}
+					else System.out.println("Not quite..");
+						
 			}
-			else System.out.println("Not quite..");
 		}
-		System.out.println("Test Complete. You scored "+points+"/5"); //return their score
+		//return score when the test concludes.
 	}
 	
-	public char getAnswer(int num) {
+	public static int getAnswer(int num) {
 		return answers[num];
 	}
 	
-	public String getQuestion(int num) {
+	public static String getQuestion(int num) {
 		return questions[num];
 	}
 	
@@ -60,11 +77,11 @@ public class Questions { //this is the questions class beginning
 							"[A] Abraham Lincoln"+"\r\n"+
 							"[B] John F. Kennedy"+"\r\n"+ //correct
 							"[C] Jimmy Carter"+"\r\n"+
-							"[D] Bill Clinton";
+							"[D] Billy Clinton";
 		
 		}
 	}
-	
+
 	public static void setAnswers(int num) {
 		if(num == 1) {
 			answers[0] = 2;
@@ -72,7 +89,5 @@ public class Questions { //this is the questions class beginning
 			answers[3] = 1;
 			answers[4] = 1;
 		}	
-	}
-	
-	
+	}	
 }

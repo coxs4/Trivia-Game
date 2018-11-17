@@ -14,8 +14,8 @@ public class Player
     {
          try
          {
-             String serverName = "10.200.20.218";
-             s=new Socket(serverName,1236);
+             String serverName = "10.200.240.150";
+             s=new Socket(serverName,2134);
              System.out.println(s);
              din= new DataInputStream(s.getInputStream());
              dout= new DataOutputStream(s.getOutputStream());
@@ -26,8 +26,7 @@ public class Player
              System.out.println(e);
          }
      }
-     public void ClientChat() throws IOException
-     {
+     public void ClientChat() throws IOException {
            BufferedReader read= new BufferedReader(new InputStreamReader(din));
            String receiveMessage, sendMessage;
            do
@@ -39,7 +38,6 @@ public class Player
                * a user to click a button representing their
                * answer. Send message will be button click.
                */
-        	   
         	   
         	   //what do do once a choice is made
            }
