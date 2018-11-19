@@ -15,7 +15,7 @@ public class Player
          try
          {
              String serverName = "10.200.240.150";
-             s=new Socket(serverName,2134);
+             s=new Socket(serverName,2122);
              System.out.println(s);
              din= new DataInputStream(s.getInputStream());
              dout= new DataOutputStream(s.getOutputStream());
