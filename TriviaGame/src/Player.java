@@ -15,7 +15,7 @@ public class Player
          try
          {
              String serverName = "10.200.240.150";
-             s=new Socket(serverName,2112);
+             s=new Socket(serverName,2115);
              System.out.println(s);
              din= new DataInputStream(s.getInputStream());
              dout= new DataOutputStream(s.getOutputStream());
@@ -29,11 +29,10 @@ public class Player
      public void ClientChat() throws IOException {
            BufferedReader read= new BufferedReader(new InputStreamReader(din));
            String receiveMessage, sendMessage;
-           do
+           while((receiveMessage = read.readLine()) != null)
            {
-        	   if((receiveMessage = read.readLine())!= null) {
         		   System.out.println(receiveMessage.substring(2));
-        	   }
+        	   
               /* here is where code will go that will allow
                * a user to click a button representing their
                * answer. Send message will be button click.
