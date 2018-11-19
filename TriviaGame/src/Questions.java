@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,9 +15,10 @@ public class Questions { //this is the questions class beginning
 	private static int answers[]= new int[testLen];
 	private static int points = 0;
 
+	@SuppressWarnings("resource")
 	public static void main(String as[]) throws IOException
     {
-		ServerSocket serverSocket = new ServerSocket(1334);
+		ServerSocket serverSocket = new ServerSocket(2112);
 		//wait and accept a connection
 		Socket mySocket = serverSocket.accept(); 
 
@@ -24,11 +26,11 @@ public class Questions { //this is the questions class beginning
 		setAnswers(1);
 		
 		//feed the questions, wait for an answer, and determine whether they answered correctly or not.
-		OutputStream output = mySocket.getOutputStream();
-		PrintWriter write = new PrintWriter(output,true);
-		
-		InputStream input = mySocket.getInputStream();
-		BufferedReader read= new BufferedReader(new InputStreamReader(input));
+		//OutputStream output = mySocket.getOutputStream();
+		//PrintWriter write = new PrintWriter(output,true);
+	    DataInputStream din;
+        din= new DataInputStream(mySocket.getInputStream());
+		BufferedReader read= new BufferedReader(new InputStreamReader(din));
 		
 		DataOutputStream dout;
 		dout = new DataOutputStream(mySocket.getOutputStream());
@@ -40,8 +42,11 @@ public class Questions { //this is the questions class beginning
 			dout.writeUTF(ques);
 			dout.flush();
 				
-			int ans = getAnswer(q);
-			/*(if(receiveMessage == ans) {
+			/*int ans = getAnswer(q);
+			if((receiveMessage = read.readLine())!= 0) {
+      		   System.out.println(receiveMessage);
+      	    }
+			if(receiveMessage == ans) {
 				System.out.println("Correct!");	//calculate the correct answers
 				points++;
 			}	
@@ -62,24 +67,11 @@ public class Questions { //this is the questions class beginning
 	
 	public static void setQuestions(int test) {
 		if(test == 1) {
-			questions[0] = "Where were the 2012 Summer Olympics Held?"+"\r\n"+
-							"[A] Berlin"+"\r\n"+
-							"[B] Madrid"+"\r\n"+
-							"[C] London"+"\r\n"+ 
-							"[D] Moscow";
-			questions[1] = "True or False: Seinfeld is the current longest-running TV show.";
-			questions[2] = "Which of the following is NOT in Boston?"+"\r\n"+
-							"[A] Fenway Park"+"\r\n"+
-							"[B] Gillette Stadium"+"\r\n"+ 
-							"[C] TD Garden"+"\r\n"+
-							"[D] None of the above";
-			questions[3] = "True or False: ";
-			questions[4] = "Which U.S. President was from the Boston area?"+"\r\n"+
-							"[A] Baberaham Lincoln"+"\r\n"+
-							"[B] Johnny F. Kennedy"+"\r\n"+ 
-							"[C] Jimmy C"+"\r\n"+
-							"[D] Billy Clinton";
-		
+			questions[0] ="Where were the 2012 Summer Olympics Held?"+"\r\n";
+			questions[1] ="Which of the following is NOT in Boston?"+"\r\n";
+			questions[2] ="Which U.S. President was from the Boston area?"+"\r\n";
+			questions[3] ="A string";
+			questions[4] ="A string";
 		}
 	}
 

@@ -15,7 +15,7 @@ public class Player
          try
          {
              String serverName = "10.200.240.150";
-             s=new Socket(serverName,2122);
+             s=new Socket(serverName,2112);
              System.out.println(s);
              din= new DataInputStream(s.getInputStream());
              dout= new DataOutputStream(s.getOutputStream());
@@ -32,7 +32,7 @@ public class Player
            do
            {
         	   if((receiveMessage = read.readLine())!= null) {
-        		   System.out.println(receiveMessage);
+        		   System.out.println(receiveMessage.substring(2));
         	   }
               /* here is where code will go that will allow
                * a user to click a button representing their
