@@ -46,7 +46,7 @@ public class Questions { //this is the questions class beginning
 	
 	public static void setQuestions(int test) {
 		if(test == 1) {
-			questions[0] ="Where were the 2012 Summer Olympics Held? [A. Boston B. Hong Kong C. London D. Berlin] \n";
+			questions[0] ="Where were the 2012 Summer Olympics Held? 	A. Boston 	B. Hong Kong 	C. London 	D. Berlin \n";
 			questions[1] ="Which of the following is NOT in Boston? \n A. Fenway Park \n B. Gillete Stadium \n C. TD Garden \n D. None of the above. \n";
 			questions[2] ="Which U.S. President was from the Boston area? \n A. Jimmy Carter \n B. John F. Kennedy \n C. Samuel Adams \n D. Both B and C \n";
 			questions[3] ="A string";
