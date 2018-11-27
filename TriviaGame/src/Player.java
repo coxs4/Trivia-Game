@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,37 +8,41 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Player extends Application{
-	
-	public int ansCho = 0;
-	public String butOne ="Button";// getAnswer(1);
-	public String butTwo = "Button";// getAnswer(2);
-	public String butThree ="Button"; //getAnswer(3);
-	public String butFour = "Button";//getAnswer(4);
+	public int score1 = 0;
+	public String ansCho = "0";
+	public String butOne ="A";// getAnswer(1);
+	public String butTwo = "B";// getAnswer(2);
+	public String butThree ="C"; //getAnswer(3);
+	public String butFour = "D";//getAnswer(4);
 	public String question = null;
+	public String[] ques = new String[5];
+	public String[] answ = new String[ques.length];
+	public String ans;
+
 	Socket s;
 	DataInputStream din;
 	DataOutputStream dout;
 	
+    int p=0;
+    String[] r = new String[ques.length];
+    int w = 5;
 
 	
     public Player() {
          try {
              String serverName = "10.200.147.126";
-             s=new Socket(serverName,2114);
+             s=new Socket(serverName,1000);
              System.out.println(s);
              din= new DataInputStream(s.getInputStream());
              dout= new DataOutputStream(s.getOutputStream());
@@ -49,21 +54,25 @@ public class Player extends Application{
      }
      @SuppressWarnings("null")
 	public void ClientChat() throws IOException{
-           BufferedReader read= new BufferedReader(new InputStreamReader(din));
-          String receiveMessage;           
-           while((receiveMessage = read.readLine())!= null) {
-        		   question = receiveMessage.substring(2);
-        		   
-        		   butOne = "A";
-        		   butTwo = "B";
-        		   butThree = "C";
-        		   butFour = "D";
-              /* here is where code will go that will allow
-               * a user to click a button representing their
-               * answer. Send message will be button click.
-               */
-        	   //what do do once a choice is made
-           }  
+          BufferedReader read= new BufferedReader(new InputStreamReader(din));
+          // BufferedWriter write = new BufferedWriter(new OutputStreamWriter(dout));
+          // String receiveMessage = din.readUTF().toString();//.replace('#', '\n'); 
+          // System.out.println(receiveMessage);
+		   //String l = din.readUTF();
+          
+           for(int i=ques.length-1;i>0;i--) {
+        	   r[i]=din.readUTF().replace('#', '\n');
+        	   int h = r[i].indexOf('$');
+        	   //System.out.print(r[i]);
+        	   ques[i] = r[r.length-1].substring(p+1,h);
+        	   question = ques[i];
+   
+        	   System.out.println("question is : "+ques[i]);
+        	   answ[i] = r[r.length-1].substring(p, p+1);
+        	   ans = answ[i];
+        	   System.out.println("answer is: "+answ[i]);
+           }
+          
     }
   
 	
@@ -90,8 +99,9 @@ public class Player extends Application{
 		Text score = new Text("Score: ");
 		grid.add(score, 0, 2);
 		
-		Text disScore = new Text("0");
+		Text disScore = new Text(new Integer(score1).toString());
 		grid.add(disScore, 1, 2);
+		
 		
 		Text ask = new Text(question);
 		ask.setFont(Font.font("Tahoma", FontWeight.SEMI_BOLD, 12));
@@ -105,12 +115,14 @@ public class Player extends Application{
 		Button queFour = new Button(butFour);
 
 		queOne.setOnAction(e->{
-			   ansCho=1;
-	           ask.setText(question);
-	           queOne.setText(butOne);
-	           queTwo.setText(butTwo);
-	           queThree.setText(butThree);
-	           queFour.setText(butFour);
+			   ansCho="1";
+			   if(ans.equals(ansCho)) {
+				   score1++;
+        		   System.out.println("wooo");
+    			   disScore.setText(new Integer(score1).toString());	
+    			   ask.setText(ques[1]);							//sets the next question
+    			   w--;												
+        	   }
 
 		});	
 		
@@ -118,44 +130,44 @@ public class Player extends Application{
 		
 		
 		queTwo.setOnAction(e->{
-			   ansCho=2;
-			   ask.setText(question);
-	           queOne.setText(butOne);
-	           queTwo.setText(butTwo);
-	           queThree.setText(butThree);
-	           queFour.setText(butFour);
+			   ansCho="2";
+			   if(ans.equals(ansCho)) {
+				   score1++;
+        		   System.out.println("wooo");
+    			   disScore.setText(new Integer(score1).toString());
+    			   ask.setText(question);						//sets the next question
+    			   w--;
+        	   }
+	          
 		});		
 		grid.add(queTwo, 1, 3);
 		
 		queThree.setOnAction(e->{
-			   ansCho=3;
-			   ask.setText(question);
-	           queOne.setText(butOne);
-	           queTwo.setText(butTwo);
-	           queThree.setText(butThree);
-	           queFour.setText(butFour);
+			   ansCho="3";
+			   if(ans.equals(ansCho)) {
+				   score1++;
+        		   System.out.println("wooo");
+    			   disScore.setText(new Integer(score1).toString());
+    			   ask.setText(question);
+    			   w--;
+        	   }
+	          
 		});			
 		grid.add(queThree, 2, 3);
 	
 		queFour.setOnAction(e->{
-			   ansCho=4;
-			   ask.setText(question);
-	           queOne.setText(butOne);
-	           queTwo.setText(butTwo);
-	           queThree.setText(butThree);
-	           queFour.setText(butFour);
+			   ansCho="4";
+			   
+			   if(ans.equals(ansCho)) {
+				   score1++;
+        		   System.out.println("wooo");
+    			   disScore.setText(new Integer(score1).toString());
+    			   ask.setText(question);
+    			   w--;
+        	   }
+	           
 		});			
 		grid.add(queFour, 3, 3);
-		
-		
-		try {
-			if(ansCho!=0) {
-				ClientChat();
-			  }
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 		
 		Scene scene = new Scene(grid);
 		primaryStage.setResizable(false);
@@ -166,7 +178,8 @@ public class Player extends Application{
 	}
 	
 	public static void main(String args[]) {
-        launch(args);
-		new Player(); 
+		launch(args);
+		new Player();
+
 	}	
 }
