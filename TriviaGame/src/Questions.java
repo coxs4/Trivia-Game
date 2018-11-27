@@ -39,10 +39,10 @@ public class Questions { //this is the questions class beginning
 	
 	public static void setQuestions(int test) {
 		if(test == 1) {
-			questions[0] ="3Where were the 2012 Summer Olympics Held? 	#A. Boston 	#B. Hong Kong 	#C. London 	#D. Berlin $";
-			questions[1] ="2Which of the following is NOT in Boston?		#A. Fenway   #B. Gillete Stadium 		#C. TD Garden 	#D. None of the above $";
-			questions[2] ="2Which President was from the Boston area?  	#A. Jimmy Carter 	#B. John F. Kennedy 		#C. Samuel Adams 	#D. Both B and C $";
-			questions[3] ="2In what year was Wentworth founded?			#A. 1902		#B. 1904		#C. 1906		#D.1908 $";
+			questions[0] ="3Where were the 2012 Summer Olympics Held? 	#A. Boston 	#B. Hong Kong 	#C. London 	#D. Berlin $#";
+			questions[1] ="2Which of the following is NOT in Boston?		#A. Fenway   #B. Gillete Stadium 		#C. TD Garden 	#D. None of the above $#";
+			questions[2] ="2Which President was from the Boston area?  	#A. Jimmy Carter 	#B. John F. Kennedy 		#C. Samuel Adams 	#D. Both B and C $#";
+			questions[3] ="2In what year was Wentworth founded?			#A. 1902		#B. 1904		#C. 1906		#D.1908 $#";
 			questions[4] ="2Which album sold the most copies in America? #A. Thriller - Michael Jackson #B. Greatest Hits - Eagles #C. DAMN. - Kendrick Lamar #D. In Pieces - Garth Brooks";
 		}
 	}

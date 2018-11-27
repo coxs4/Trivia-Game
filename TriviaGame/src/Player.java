@@ -59,21 +59,26 @@ public class Player extends Application{
           // String receiveMessage = din.readUTF().toString();//.replace('#', '\n'); 
           // System.out.println(receiveMessage);
 		   //String l = din.readUTF();
+          for(int i=ques.length-1;i>0;i--) {
+        	  r[i]=din.readUTF().replace('#', '\n');
+          }
+          /*for(int n = r.length-1 ; n > 0; n--) {
+        	 System.out.print("r["+n+"] is : "+r[n]); 
+          }*/ 	  
+           	  
+           	  
+           	  
+           	  
+              /*ques[i] = r[r.length-1].substring(p+1,h);
+          	  question = ques[i];
+     
+           	  System.out.println("question is : "+ques[i]);
+           	  answ[i] = r[r.length-1].substring(p, p+1);
+           	  ans = answ[i];
+           	  System.out.println("answer is: "+answ[i]);*/
           
-           for(int i=ques.length-1;i>0;i--) {
-        	   r[i]=din.readUTF().replace('#', '\n');
-        	   int h = r[i].indexOf('$');
-        	   //System.out.print(r[i]);
-        	   ques[i] = r[r.length-1].substring(p+1,h);
-        	   question = ques[i];
-   
-        	   System.out.println("question is : "+ques[i]);
-        	   answ[i] = r[r.length-1].substring(p, p+1);
-        	   ans = answ[i];
-        	   System.out.println("answer is: "+answ[i]);
-           }
-          
-    }
+     }
+    
   
 	
 	public void start(Stage primaryStage) throws Exception {
