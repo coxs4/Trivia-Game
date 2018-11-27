@@ -25,10 +25,11 @@ public class Player extends Application{
 	public String butTwo = "B";// getAnswer(2);
 	public String butThree ="C"; //getAnswer(3);
 	public String butFour = "D";//getAnswer(4);
-	public String question = null;
+	public static String question;
 	public String[] ques = new String[5];
 	public String[] answ = new String[ques.length];
 	public String ans;
+	public int num = 4;
 
 	Socket s;
 	DataInputStream din;
@@ -62,14 +63,20 @@ public class Player extends Application{
           for(int i=ques.length-1;i>0;i--) {
         	  r[i]=din.readUTF().replace('#', '\n');
           }
-          /*for(int n = r.length-1 ; n > 0; n--) {
+          question = r[4];
+          ans = r[4].substring(p, p+1).toString();
+          
+          for(int n = r.length-1 ; n > 0; n--) {
         	 System.out.print("r["+n+"] is : "+r[n]); 
-          }*/ 	  
-           	  
-           	  
-           	  
-           	  
-              /*ques[i] = r[r.length-1].substring(p+1,h);
+          } 	  
+          /*for(int n = r.length-1; n > 0; n--) { //4 to 0 : 5 iterations
+        	  int h = r[n].indexOf('$');
+        	  ques[n] = r[n].substring(p+1,h);
+        	  question = ques[n];
+        	  answ[n] = r[n].substring(p, p+1);
+        	  ans = answ[n];
+          }
+              ques[i] = r[r.length-1].substring(p+1,h);
           	  question = ques[i];
      
            	  System.out.println("question is : "+ques[i]);
@@ -78,7 +85,6 @@ public class Player extends Application{
            	  System.out.println("answer is: "+answ[i]);*/
           
      }
-    
   
 	
 	public void start(Stage primaryStage) throws Exception {
@@ -118,14 +124,16 @@ public class Player extends Application{
 		Button queTwo = new Button(butTwo);
 		Button queThree = new Button(butThree);
 		Button queFour = new Button(butFour);
-
+		
 		queOne.setOnAction(e->{
 			   ansCho="1";
 			   if(ans.equals(ansCho)) {
 				   score1++;
         		   System.out.println("wooo");
-    			   disScore.setText(new Integer(score1).toString());	
-    			   ask.setText(ques[1]);							//sets the next question
+    			   disScore.setText(new Integer(score1).toString());
+    			   num = num-1;
+    			   ask.setText(r[num]);							//sets the next question
+    			   ans = r[num-1].substring(p, p+1).toString();
     			   w--;												
         	   }
 
@@ -140,7 +148,9 @@ public class Player extends Application{
 				   score1++;
         		   System.out.println("wooo");
     			   disScore.setText(new Integer(score1).toString());
-    			   ask.setText(question);						//sets the next question
+    			   num = num-1;
+    			   ask.setText(r[num]);						//sets the next question
+    			   ans = r[num].substring(p, p+1).toString();
     			   w--;
         	   }
 	          
@@ -153,7 +163,9 @@ public class Player extends Application{
 				   score1++;
         		   System.out.println("wooo");
     			   disScore.setText(new Integer(score1).toString());
-    			   ask.setText(question);
+    			   num = num-1;
+    			   ask.setText(r[num]);
+    			   ans = r[num].substring(p, p+1).toString();
     			   w--;
         	   }
 	          
@@ -167,7 +179,9 @@ public class Player extends Application{
 				   score1++;
         		   System.out.println("wooo");
     			   disScore.setText(new Integer(score1).toString());
-    			   ask.setText(question);
+    			   num = num-1;
+    			   ask.setText(r[num]);
+    			   ans = r[num].substring(p, p+1).toString();
     			   w--;
         	   }
 	           
