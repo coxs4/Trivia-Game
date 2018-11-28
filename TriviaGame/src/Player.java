@@ -43,7 +43,7 @@ public class Player extends Application{
     public Player() {
          try {
              String serverName = "10.200.147.126";
-             s=new Socket(serverName,1000);
+             s=new Socket(serverName,2134);
              System.out.println(s);
              din= new DataInputStream(s.getInputStream());
              dout= new DataOutputStream(s.getOutputStream());
@@ -56,34 +56,17 @@ public class Player extends Application{
      @SuppressWarnings("null")
 	public void ClientChat() throws IOException{
           BufferedReader read= new BufferedReader(new InputStreamReader(din));
-          // BufferedWriter write = new BufferedWriter(new OutputStreamWriter(dout));
-          // String receiveMessage = din.readUTF().toString();//.replace('#', '\n'); 
-          // System.out.println(receiveMessage);
-		   //String l = din.readUTF();
+          
           for(int i=ques.length-1;i>0;i--) {
         	  r[i]=din.readUTF().replace('#', '\n');
           }
-          question = r[4];
+          question = r[4].substring(p+1).replace("$", "");
           ans = r[4].substring(p, p+1).toString();
           
           for(int n = r.length-1 ; n > 0; n--) {
         	 System.out.print("r["+n+"] is : "+r[n]); 
           } 	  
-          /*for(int n = r.length-1; n > 0; n--) { //4 to 0 : 5 iterations
-        	  int h = r[n].indexOf('$');
-        	  ques[n] = r[n].substring(p+1,h);
-        	  question = ques[n];
-        	  answ[n] = r[n].substring(p, p+1);
-        	  ans = answ[n];
-          }
-              ques[i] = r[r.length-1].substring(p+1,h);
-          	  question = ques[i];
-     
-           	  System.out.println("question is : "+ques[i]);
-           	  answ[i] = r[r.length-1].substring(p, p+1);
-           	  ans = answ[i];
-           	  System.out.println("answer is: "+answ[i]);*/
-          
+      
      }
   
 	
@@ -98,7 +81,7 @@ public class Player extends Application{
 		grid.setGridLinesVisible(false);
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(75);
-		grid.setVgap(20);
+		grid.setVgap(5);
 		
 		Text scenetitle = new Text("Trivia!");
 		scenetitle.setFont(Font.font("Tahoma", FontWeight.SEMI_BOLD, 30));
@@ -127,15 +110,22 @@ public class Player extends Application{
 		
 		queOne.setOnAction(e->{
 			   ansCho="1";
+			   if(score1 == 2) {
+					ask.setText("~Congrats!~ you finished!");
+					ans = "2";
+				}
 			   if(ans.equals(ansCho)) {
 				   score1++;
-        		   System.out.println("wooo");
     			   disScore.setText(new Integer(score1).toString());
     			   num = num-1;
-    			   ask.setText(r[num]);							//sets the next question
+    			   ask.setText(r[num].substring(p+1).replace("$", ""));							//sets the next question
     			   ans = r[num-1].substring(p, p+1).toString();
-    			   w--;												
+        	   }else {
+        		   num = num-1;
+    			   ask.setText(r[num].substring(p+1).replace("$", ""));
+    			   ans = r[num].substring(p, p+1).toString();
         	   }
+	          
 
 		});	
 		
@@ -144,29 +134,42 @@ public class Player extends Application{
 		
 		queTwo.setOnAction(e->{
 			   ansCho="2";
+			   if(score1 == 2) {
+					ask.setText("~Congrats!~ you finished!");
+					ans = "1";
+				}
 			   if(ans.equals(ansCho)) {
 				   score1++;
-        		   System.out.println("wooo");
     			   disScore.setText(new Integer(score1).toString());
     			   num = num-1;
-    			   ask.setText(r[num]);						//sets the next question
+    			   ask.setText(r[num].substring(p+1).replace("$", ""));						//sets the next question
     			   ans = r[num].substring(p, p+1).toString();
-    			   w--;
+        	   }else {
+        		   num = num-1;
+    			   ask.setText(r[num].substring(p+1).replace("$", ""));
+    			   ans = r[num].substring(p, p+1).toString();
         	   }
+	          
 	          
 		});		
 		grid.add(queTwo, 1, 3);
 		
 		queThree.setOnAction(e->{
 			   ansCho="3";
+			   if(score1 == 2) {
+					ask.setText("~Congrats!~ you finished!");
+					ans = "1";
+				}
 			   if(ans.equals(ansCho)) {
 				   score1++;
-        		   System.out.println("wooo");
     			   disScore.setText(new Integer(score1).toString());
     			   num = num-1;
-    			   ask.setText(r[num]);
+    			   ask.setText(r[num].substring(p+1).replace("$", ""));
     			   ans = r[num].substring(p, p+1).toString();
-    			   w--;
+        	   }else {
+        		   num = num-1;
+    			   ask.setText(r[num].substring(p+1).replace("$", ""));
+    			   ans = r[num].substring(p, p+1).toString();
         	   }
 	          
 		});			
@@ -174,19 +177,26 @@ public class Player extends Application{
 	
 		queFour.setOnAction(e->{
 			   ansCho="4";
-			   
+			   if(score1 == 2) {
+					ask.setText("~Congrats!~ you finished!");
+					ans = "1";
+				}
 			   if(ans.equals(ansCho)) {
 				   score1++;
-        		   System.out.println("wooo");
     			   disScore.setText(new Integer(score1).toString());
     			   num = num-1;
-    			   ask.setText(r[num]);
+    			   ask.setText(r[num].substring(p+1).replace("$", ""));
     			   ans = r[num].substring(p, p+1).toString();
-    			   w--;
+        	   }else {
+        		   num = num-1;
+    			   ask.setText(r[num].substring(p+1).replace("$", ""));
+    			   ans = r[num].substring(p, p+1).toString();
         	   }
+	          
 	           
 		});			
 		grid.add(queFour, 3, 3);
+		
 		
 		Scene scene = new Scene(grid);
 		primaryStage.setResizable(false);
